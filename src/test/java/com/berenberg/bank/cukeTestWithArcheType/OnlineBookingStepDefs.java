@@ -137,10 +137,13 @@ public class OnlineBookingStepDefs {
 		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='slot207022']")));
 		//WebElement inner = driver.findElement(By.xpath(".//*[@id='slot203153']"));
 		
+		String time = "13:00";
+		int noOfHrs = 2;
+		for(int i = 1; i<=noOfHrs;i++) {
 		
 		List<WebElement> linner = anchor.findElements(By.xpath("..//following-sibling::*"));
 		for(WebElement ll:linner) {
-			if(ll.getAttribute("innerText").contains("13:00")) {
+			if(ll.getAttribute("innerText").contains(time)) {
 			//System.out.println("--------------Slot -----------------");
 			List<WebElement> av = ll.findElements(By.xpath("child::*"));
 			for(WebElement avail:av){
@@ -184,15 +187,56 @@ public class OnlineBookingStepDefs {
 		 html/body/div[2]/div/div/fieldset/div/a[2]  -- OK. 
 		 */
 		
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		System.out.println(driver.getWindowHandle());
 		driver.switchTo().frame(driver.findElement(By.xpath(".//*[@id='TB_window']/iframe")));
+		
+	
+		
+		//driver.switchTo().defaultContent(); 
+		
+		Thread.sleep(1000);
+		//iframe to select court and say "Add to Basket"
+		//driver.switchTo().frame(0);
+		//driver.switchTo().frame("TB_iframeContent");
+		//driver.switchTo().frame(driver.findElement(By.xpath(".//*[@id='TB_window']/iframe")));
+		
+		
+		Thread.sleep(2000);
+
+		
+		WebElement frame = driver.findElement(By.tagName("iframe"));
+		System.out.println("SourceAtribute::"+frame.getAttribute("src"));
+		
+		//This was the magic line that made it work. Maybe I have to switch twice! Trying again. both Switch works. 
+		//Basically there is frame inside a frame. Need to double switch
+		
+		driver.switchTo().frame(frame);
+		//driver.switchTo().frame(driver.findElement(By.xpath(".//*[@id='TB_window']/iframe")));
+		
+		//System.out.println(driver.getWindowHandle());
+		
+		//This works!! 
+		System.out.println(driver.findElement(By.xpath("/html/body/div[2]/div/div/fieldset/p")).getAttribute("innerText"));
+		
+		//WORKS!! finally!! 
+		driver.findElement(By.xpath("/html/body/div[2]/div/div/fieldset/div/a")).click();
+		
+		driver.switchTo().parentFrame();
+		System.out.println("Check Anchor's value!!");
+		System.out.println(anchor.getAttribute("innerText"));
+		
+		time = "15:00";
+	}
+		
+	/*
 		//System.out.println(driver.getPageSource());
 		System.out.println("--------iFrame------------");
 		//System.out.println(driver.findElement(By.tagName("iframe")).toString());
 		//System.out.println(driver.getCurrentUrl());
 		WebElement frame = driver.findElement(By.tagName("iframe"));
 		System.out.println("--------iFrame page source------------");
-		System.out.println(frame.getAttribute("innerHTML"));
+		//System.out.println(frame.getAttribute("innerHTML"));
 		System.out.println("--------iFrame page source------------");
 	
 		Thread.sleep(2000);
@@ -203,7 +247,7 @@ public class OnlineBookingStepDefs {
 		List<WebElement> buttons = frame.findElements(By.xpath("/html/body/div"));
 		for(WebElement div: buttons) {
 			System.out.println("--------innerHTML of div----------");
-		System.out.println("title innerHTML(web bookings)::"+div.getAttribute("innerHTML"));
+		//System.out.println("title innerHTML(web bookings)::"+div.getAttribute("innerHTML"));
 		}
 		
 		
@@ -215,7 +259,7 @@ public class OnlineBookingStepDefs {
 			//System.out.println(nodes.getAttribute("innerHTML"));
 			//System.out.println(nodes.getClass());
 			
-	
+	*/
 		
 		
 		//System.out.println(driver.getPageSource());
