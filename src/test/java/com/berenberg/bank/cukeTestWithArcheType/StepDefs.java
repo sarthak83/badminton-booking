@@ -35,7 +35,9 @@ public class StepDefs {
 	
 	@Before("@FaceBookTest")
 	public void setup() {
-		System.setProperty("webdriver.chrome.driver", "/Users/sarthakdayanand/Documents/Automation/chromedriver");
+		System.out.println("OS is :"+System.getProperty("os.name"));
+		if(System.getProperty("os.name").contains("Windows"))
+			System.setProperty("webdriver.chrome.driver", "C:/Users/IBM_ADMIN/Documents/Automation/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get("https://www.facebook.com/");
 		driver.manage().window().maximize();
