@@ -33,7 +33,10 @@ public class OnlineBookingStepDefs {
 	
 	@Before("@OnlineBooking")
 	public void setup() {
-		System.setProperty("webdriver.chrome.driver", "/Users/sarthakdayanand/Documents/Automation/chromedriver");
+		if(System.getProperty("os.name").contains("Windows"))
+			System.setProperty("webdriver.chrome.driver", "C:/Users/IBM_ADMIN/Documents/Automation/chromedriver.exe");
+		else
+			System.setProperty("webdriver.chrome.driver", "/Users/sarthakdayanand/Documents/Automation/chromedriver");
 		driver = new ChromeDriver();
 		driver.get("https://better.legendonlineservices.co.uk/enterprise/account/login");
 		driver.manage().window().maximize();
