@@ -20,10 +20,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import junit.framework.TestCase;
-import junit.framework.TestResult;
 
-import org.junit.Assert;
 
 
 public class OnlineBookingStepDefs {
@@ -58,8 +55,8 @@ public class OnlineBookingStepDefs {
 		driver.findElement(By.id("login")).click();
 	}
 
-	@When("^I select the desired date and time$")
-	public void i_select_the_desired_date_and_time() throws Throwable {
+	@When("^I select the start time as \"([^\"]*)\" and hours as (\\d+)$")
+	public void i_select_the_start_time_as_and_hours_as(String time, int noOfHrs) throws Throwable {
 		//System.out.println("i_select_the_desired_date_and_time");
 		wait = new WebDriverWait(driver,30);
 		
@@ -137,8 +134,8 @@ public class OnlineBookingStepDefs {
 		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='slot207022']")));
 		//WebElement inner = driver.findElement(By.xpath(".//*[@id='slot203153']"));
 		
-		String time = "13:00";
-		int noOfHrs = 2;
+		//String time = "13:00";
+		//int noOfHrs = 2;
 		for(int i = 1; i<=noOfHrs;i++) {
 		
 		List<WebElement> linner = anchor.findElements(By.xpath("..//following-sibling::*"));
@@ -219,7 +216,8 @@ public class OnlineBookingStepDefs {
 		//This works!! 
 		System.out.println(driver.findElement(By.xpath("/html/body/div[2]/div/div/fieldset/p")).getAttribute("innerText"));
 		
-		//WORKS!! finally!! 
+		//WORKS!! finally!! clicks on choose another. Click this for first hour. 
+		if(i!=noOfHrs) {
 		driver.findElement(By.xpath("/html/body/div[2]/div/div/fieldset/div/a")).click();
 		
 		driver.switchTo().parentFrame();
@@ -227,6 +225,12 @@ public class OnlineBookingStepDefs {
 		System.out.println(anchor.getAttribute("innerText"));
 		
 		time = "15:00";
+		}
+		else {
+			driver.findElement(By.xpath("/html/body/div[2]/div/div/fieldset/div/a[2]")).click();
+			break;
+		}
+			
 	}
 		
 	/*
@@ -298,7 +302,8 @@ public class OnlineBookingStepDefs {
 		//we are on payment page now. Where we give CC details. 
 		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 		
-		driver.findElement(By.id("panInput")).sendKeys("");
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("panInput")));
+		driver.findElement(By.id("panInput")).sendKeys("1111222233334444");
 	
 		Select month = new Select(driver.findElement(By.id("ExpiryDateMonth")));
 		month.selectByValue("03");
@@ -307,8 +312,8 @@ public class OnlineBookingStepDefs {
 		year.selectByVisibleText("2017");
 		
 		//CVV code
-		driver.findElement(By.id("csc")).sendKeys("");
-		driver.findElement(By.id("cardholdername")).sendKeys("");
+		driver.findElement(By.id("csc")).sendKeys("607");
+		driver.findElement(By.id("cardholdername")).sendKeys("S K C Dayanand");
 		
 		driver.findElement(By.id("btnPayNow")).click();
 		
