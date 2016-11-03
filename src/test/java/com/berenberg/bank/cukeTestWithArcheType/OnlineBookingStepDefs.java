@@ -147,7 +147,7 @@ public class OnlineBookingStepDefs {
 			for(WebElement avail:av){
 				//System.out.println("Childs tagName::"+avail.getTagName());
 				//System.out.println(avail.findElement(By.xpath(".//following-sibling::a[2]")).getText());
-				System.out.println("----------Available---------");
+				//System.out.println("----------Available---------");
 				if(avail.findElements(By.xpath(".//following-sibling::a[2]")).size()!=0) {
 					//avail.findElement(By.xpath(".//following-sibling::a[2]"));
 				//if(avail.findElement(By.xpath("..//following-sibling::a[1]")) != null)
@@ -186,7 +186,7 @@ public class OnlineBookingStepDefs {
 		 */
 		
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		System.out.println(driver.getWindowHandle());
+		//System.out.println(driver.getWindowHandle());
 		driver.switchTo().frame(driver.findElement(By.xpath(".//*[@id='TB_window']/iframe")));
 		
 	
@@ -200,17 +200,19 @@ public class OnlineBookingStepDefs {
 		//driver.switchTo().frame(driver.findElement(By.xpath(".//*[@id='TB_window']/iframe")));
 		
 		
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 
 		
 		WebElement frame = driver.findElement(By.tagName("iframe"));
-		System.out.println("SourceAtribute::"+frame.getAttribute("src"));
+		//System.out.println("SourceAtribute::"+frame.getAttribute("src"));
 		
 		//This was the magic line that made it work. Maybe I have to switch twice! Trying again. both Switch works. 
 		//Basically there is frame inside a frame. Need to double switch
 		
 		driver.switchTo().frame(frame);
 		//driver.switchTo().frame(driver.findElement(By.xpath(".//*[@id='TB_window']/iframe")));
+		//System.out.println("Page source of inner iframe");
+		//System.out.println(driver.getPageSource());
 		
 		//System.out.println(driver.getWindowHandle());
 		
