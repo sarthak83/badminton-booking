@@ -31,7 +31,7 @@ public class OnlineBookingStepDefs {
 	@Before("@OnlineBooking")
 	public void setup() {
 		System.out.println("OS is:"+System.getProperty("os.name"));
-		if(System.getProperty("os.name").contains("Windows"))
+		if(System.getProperty("os.name").contains("Windows: changed from pc"))
 			System.setProperty("webdriver.chrome.driver", "C:/Users/IBM_ADMIN/Documents/Automation/chromedriver.exe");
 		else if(System.getProperty("os.name").contains("Mac"))
 			System.setProperty("webdriver.chrome.driver", "/Users/sarthakdayanand/Documents/Automation/chromedriver");
