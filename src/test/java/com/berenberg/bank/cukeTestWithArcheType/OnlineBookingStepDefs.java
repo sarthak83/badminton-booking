@@ -107,6 +107,8 @@ public class OnlineBookingStepDefs {
 	    System.out.println("DAY:::"+day);
 		int count = 0;
 		WebElement anchor = null;
+		WebElement firstOccurance = null;
+		String fo = "";
 		List<WebElement> days = driver.findElements(By.xpath(".//*[@class='TextMembers']"));
 		for(WebElement d:days) {
 			//System.out.println(d.getAttribute("innerText"));
@@ -117,6 +119,8 @@ public class OnlineBookingStepDefs {
 			
 			if(s.contains(day)) {
 				System.out.println(s);
+				firstOccurance = d;
+				fo = s;
 				count++;
 			}
 			if(count == 2) {
@@ -127,6 +131,11 @@ public class OnlineBookingStepDefs {
 			
 			
 	
+		}
+		if(count == 1 && anchor == null) {
+			System.out.println("First occurance"+"     "+fo);
+			anchor = firstOccurance;
+			
 		}
 		System.out.println("--------------Day to be booked----------------");
 		
