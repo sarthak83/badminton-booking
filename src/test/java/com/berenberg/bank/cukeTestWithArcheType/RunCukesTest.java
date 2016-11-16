@@ -14,7 +14,7 @@ import cucumber.api.junit.Cucumber;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(features="src/test/resources/",
-                 tags={"@TestThen"},
+                 tags={"@TestBut"},
                  plugin={"pretty",
                 		 "html:target/test-report",
                 		 "json:target/test-report.json",
